@@ -503,13 +503,13 @@ class BounceHandler {
 		$hash['per_message'] = isset( $hash['per_message'] ) ? $this->standard_parser( $hash['per_message'] ) : array();
 		if ( isset( $hash['per_message']['X-postfix-sender'] ) ) {
 			$arr = explode( ';', $hash['per_message']['X-postfix-sender'] );
-			$hash['per_message']['X-postfix-sender'] = '';
+			$hash['per_message']['X-postfix-sender'] = array();
 			$hash['per_message']['X-postfix-sender']['type'] = @trim( $arr[0] );
 			$hash['per_message']['X-postfix-sender']['addr'] = @trim( $arr[1] );
 		}
 		if ( isset( $hash['per_message']['Reporting-mta'] ) ) {
 			$arr = explode( ';', $hash['per_message']['Reporting-mta'] );
-			$hash['per_message']['Reporting-mta'] = '';
+			$hash['per_message']['Reporting-mta'] = array();
 			$hash['per_message']['Reporting-mta']['type'] = @trim( $arr[0] );
 			$hash['per_message']['Reporting-mta']['addr'] = @trim( $arr[1] );
 		}
@@ -779,9 +779,9 @@ class BounceHandler {
     */
 	private function format_final_recipient_array( $arr ) {
 		$output = array(
-		'addr' => '',
-						'type' => '',
-		);,
+			'addr' => '',
+			'type' => '',
+		);
 		if ( isset( $arr[1] ) ) {
 			if ( strpos( $arr[0], '@' ) !== false ) {
 				$output['addr'] = $this->strip_angle_brackets( $arr[0] );
